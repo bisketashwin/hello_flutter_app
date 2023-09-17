@@ -41,35 +41,49 @@ class _LoginViewState extends State<LoginView>
     final controller = Get.put(LoginController());
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        elevation: 0,
-        actions: [],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
-          child: Container(
-            color: Colors.transparent, // This makes it transparent
-            child: TabBar(
-              controller: _tabController,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.blue,
-              labelColor: Colors.blue,
-              tabs: [
-                customTab("Email", Icons.email),
-                customTab("Phone", Icons.phone),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        child: Column(
+          children: [
+            Container(
+              width: 500,
+              height: 200,
             ),
-          ), // ... rest of the TabBar configuration
+            Container(
+              padding: EdgeInsets.only(left: 40, right: 40),
+              // color:
+              // Color.fromARGB(255, 255, 62, 62), // This makes it transparent
+              child: TabBar(
+                controller: _tabController,
+                unselectedLabelColor: Colors.grey,
+                indicatorColor: Colors.blue,
+                labelColor: Colors.blue,
+                tabs: [
+                  customTab("Email", Icons.email),
+                  customTab("Phone", Icons.phone),
+                ],
+              ),
+            ),
+            Container(
+              width: 500,
+              height: 250,
+              // color: Color.fromARGB(255, 143, 255, 253),
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  emailView(controller, _tabController, emailController,
+                      phoneController, passwordController),
+                  phoneView(controller, _tabController, emailController,
+                      phoneController, passwordController),
+                ],
+              ),
+            ),
+            Container(child: signUpButton(context)),
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Container(child: customerSupportButton(context))),
+          ],
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          emailView(controller, _tabController, emailController,
-              phoneController, passwordController),
-          phoneView(controller, _tabController, emailController,
-              phoneController, passwordController),
-        ],
       ),
     );
   }
@@ -95,26 +109,21 @@ Widget emailView(
     TextEditingController emailController,
     TextEditingController phoneController,
     TextEditingController passwordController) {
-  return Center(
-    child: Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextFormField(
-            controller: emailController,
-            decoration: InputDecoration(
-              labelText: "Email",
-            ),
-          ),
-          SizedBox(height: 20.0),
-          passwordField(controller, passwordController),
-          // loginAndSignUpButtons(controller),
-          loginAndSignUpButtons(controller, tabController, emailController,
-              phoneController, passwordController),
-        ],
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      TextFormField(
+        controller: emailController,
+        decoration: const InputDecoration(
+          labelText: "Email",
+        ),
       ),
-    ),
+      const SizedBox(height: 20.0),
+      passwordField(controller, passwordController),
+      // loginAndSignUpButtons(controller),
+      loginAndSignUpButtons(controller, tabController, emailController,
+          phoneController, passwordController),
+    ],
   );
 }
 
@@ -124,25 +133,24 @@ Widget phoneView(
     TextEditingController emailController,
     TextEditingController phoneController,
     TextEditingController passwordController) {
-  return Center(
-    child: Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextFormField(
-            controller: phoneController,
-            decoration: InputDecoration(
-              labelText: "Phone Number",
-            ),
+  return Container(
+    color: const Color.fromARGB(255, 225, 234, 236),
+    padding: const EdgeInsets.only(left: 20, right: 20),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextFormField(
+          controller: phoneController,
+          decoration: const InputDecoration(
+            labelText: "Phone Number",
           ),
-          SizedBox(height: 20.0),
-          passwordField(controller, passwordController),
-          // loginAndSignUpButtons(controller),
-          loginAndSignUpButtons(controller, tabController, emailController,
-              phoneController, passwordController),
-        ],
-      ),
+        ),
+        const SizedBox(height: 20.0),
+        passwordField(controller, passwordController),
+        // loginAndSignUpButtons(controller),
+        loginAndSignUpButtons(controller, tabController, emailController,
+            phoneController, passwordController),
+      ],
     ),
   );
 }
@@ -199,33 +207,93 @@ Widget loginAndSignUpButtons(
         },
         child: Text("Login"),
       ),
-      SizedBox(height: 20.0),
-      TextButton(
-        onPressed: () => Get.to(() => SignUpView()),
-        child: Text("Don't have an account? Sign up"),
-      ),
     ],
   );
 }
 
+Widget signUpButton(BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.only(top: 20, bottom: 20),
+    child: TextButton(
+      onPressed: () => Get.toNamed(Routes.SIGNUP),
+      child: const Text("Don't have an account? Sign up"),
+    ),
+  );
+}
+
 Widget customerSupportButton(BuildContext context) {
+  var iconSize = 20.0;
+  var circleSize = 35.0;
   return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
     children: [
-      Text("Call us for help"), // Added text
-      FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              content: Text(
-                "Customer Support",
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
-          );
-        },
-        child: Icon(Icons.call),
-      ),
+      const Text("Call us for help"),
+      Stack(alignment: Alignment.center, children: [
+        Container(
+          width: circleSize,
+          height: circleSize,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.blue, // Replace with your desired background color
+          ),
+        ),
+        IconButton(
+          iconSize: iconSize,
+          icon: const Icon(Icons.call, color: Colors.white), // Icon color
+          onPressed: () {
+            helpPopUp(context);
+          },
+        ),
+      ]),
     ],
+  );
+}
+
+Widget customerSupportButton2(BuildContext context) {
+  var iconSize = 20.0;
+  var circleSize = 35.0;
+  return Align(
+    alignment: Alignment.bottomRight,
+    child: Row(
+      children: [
+        const Text("Call us for help"),
+        Stack(alignment: Alignment.center, children: [
+          Container(
+            width: circleSize,
+            height: circleSize,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.blue, // Replace with your desired background color
+            ),
+          ),
+          IconButton(
+            iconSize: iconSize,
+            icon: const Icon(Icons.call, color: Colors.white), // Icon color
+            onPressed: () {
+              helpPopUp(context);
+            },
+          ),
+        ]),
+      ],
+    ),
+  );
+}
+
+void helpPopUp(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      content: Flex(
+        direction:
+            Axis.vertical, // you can change this to Axis.horizontal if needed
+        children: [
+          Text(
+            "Customer Support",
+            style: TextStyle(color: Colors.blue),
+          ),
+          // you can add more widgets here to be displayed vertically
+        ],
+      ),
+    ),
   );
 }
