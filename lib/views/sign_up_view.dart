@@ -7,6 +7,8 @@ import '../controllers/login_controller.dart';
 class SignUpView extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
 
+  SignUpView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,19 +19,19 @@ class SignUpView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: "Email"),
+                decoration: const InputDecoration(labelText: "Email"),
                 onChanged: (value) => controller.regEmail.value = value,
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(labelText: "Password"),
+                decoration: const InputDecoration(labelText: "Password"),
                 onChanged: (value) => controller.regPassword.value = value,
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               ElevatedButton(
                 onPressed: controller.register,
-                child: Text("Register"),
+                child: const Text("Register"),
               ),
             ],
           ),
@@ -44,12 +46,12 @@ class SignUpView extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (context) => AlertDialog(
+          builder: (context) => const AlertDialog(
             content: Text("Customer Support"),
           ),
         );
       },
-      child: Icon(Icons.call),
+      child: const Icon(Icons.call),
     );
   }
 }

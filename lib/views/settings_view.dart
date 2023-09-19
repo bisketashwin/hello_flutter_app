@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Settings extends StatelessWidget {
+  const Settings({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Basic Flutter Screen'),
+        title: const Text('Basic Flutter Screen'),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

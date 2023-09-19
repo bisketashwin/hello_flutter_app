@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Tab2View extends StatelessWidget {
+  const Tab2View({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

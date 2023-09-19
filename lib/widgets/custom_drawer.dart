@@ -5,12 +5,14 @@ import 'package:get/get.dart'; // Import for GetX
 import '../routes/app_routes.dart';
 
 class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: [
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
             accountName: Text("User Name"),
             accountEmail: Text("user@example.com"),
             currentAccountPicture: CircleAvatar(
@@ -18,18 +20,18 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
             onTap: () => Get.toNamed(Routes.SETTINGS),
           ),
           ListTile(
-            leading: Icon(Icons.edit),
-            title: Text('Edit Profile'),
+            leading: const Icon(Icons.edit),
+            title: const Text('Edit Profile'),
             onTap: () => Get.toNamed(Routes.PROFILE_EDIT),
           ),
           ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Log out'),
+            leading: const Icon(Icons.logout),
+            title: const Text('Log out'),
             onTap: () => Get.toNamed(Routes.LOGIN),
           ),
         ],

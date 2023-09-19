@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import '../controllers/login_controller.dart';
 import 'package:get/get.dart';
 import '../routes/app_routes.dart';
-import 'sign_up_view.dart';
+// import 'sign_up_view.dart';
 
 class LoginView extends StatefulWidget {
+  @override
   final Key? key;
-  LoginView({this.key}) : super(key: key);
+  const LoginView({this.key}) : super(key: key);
 
   @override
   _LoginViewState createState() => _LoginViewState();
@@ -45,12 +46,12 @@ class _LoginViewState extends State<LoginView>
         padding: const EdgeInsets.only(left: 20, right: 20),
         child: Column(
           children: [
-            Container(
+            const SizedBox(
               width: 500,
               height: 200,
             ),
             Container(
-              padding: EdgeInsets.only(left: 40, right: 40),
+              padding: const EdgeInsets.only(left: 40, right: 40),
               // color:
               // Color.fromARGB(255, 255, 62, 62), // This makes it transparent
               child: TabBar(
@@ -64,7 +65,7 @@ class _LoginViewState extends State<LoginView>
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               width: 500,
               height: 250,
               // color: Color.fromARGB(255, 143, 255, 253),
@@ -96,7 +97,7 @@ Widget customTab(String label, IconData icon) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Icon(icon, color: Colors.grey),
-        SizedBox(width: 8.0),
+        const SizedBox(width: 8.0),
         Text(label),
       ],
     ),
@@ -176,7 +177,7 @@ Widget passwordField(
           ),
         ),
       ),
-      SizedBox(height: 20.0),
+      const SizedBox(height: 20.0),
     ],
   );
 }
@@ -205,7 +206,7 @@ Widget loginAndSignUpButtons(
             // Show error
           }
         },
-        child: Text("Login"),
+        child: const Text("Login"),
       ),
     ],
   );
@@ -282,7 +283,7 @@ Widget customerSupportButton2(BuildContext context) {
 void helpPopUp(BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) => AlertDialog(
+    builder: (context) => const AlertDialog(
       content: Flex(
         direction:
             Axis.vertical, // you can change this to Axis.horizontal if needed
